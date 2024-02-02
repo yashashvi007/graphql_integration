@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "file": "bundle.css",
+  "sources": [
+    "../App.svelte"
+  ],
+  "sourcesContent": [
+    "<script>\n\timport ApolloClient from 'apollo-client';\n\timport { client } from './apollo';\n\timport { setClient } from 'svelte-apollo';\n\timport Articles, { preload as articlePreload } from './Articles.svelte';\n\timport Authors, { preload as authorPreload } from './Authors.svelte';\n\timport AddAuthor from './AddAuthor.svelte';\n\timport AuthorsSubscription from './AuthorsSubscription.svelte';\n\n\tconst articlePreloading =  articlePreload();\n\tsetClient(client);\n</script>\n\n<style global>\n\t@tailwind base;\n\t@tailwind components;\n\t@tailwind utilities;\n</style>\n\n<section>\n\t<h2 class=\"text-red\">Articles (simple query)</h2>\n\n\t{#await articlePreloading}\n\t\t<p>Preloading articles....</p>\n\t{:then preloaded}\n\t\t<Articles {...preloaded} />\n\t{:catch error}\n\t\t<p>Error preloading articles: {error}</p>\n\t{/await}\n\n\t<!-- <h2>Authors (simple query with cache updates)</h2> -->\n\n\t<!-- {#await authorPreloading}\n\t\t<p>Preloading authors....</p>\n\t{:then preloaded}\n\t\t<Authors {...preloaded} />\n\t\t<h2>Add Author (mutation)</h2>\n\t\t<AddAuthor {...preloaded} />\n\t{:catch error}\n\t\t<p>Error preloading authors: {error}</p>\n\t{/await} -->\n\n\t<!-- <h2>Authors (subscription)</h2>\n\t<AuthorsSubscription /> -->\n</section>\n"
+  ],
+  "names": [],
+  "mappings": "AAcC,UAAU,IAAI,CACd,UAAU,UAAU,CACpB,UAAU,SAAS"
+}

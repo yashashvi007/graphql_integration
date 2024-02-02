@@ -2,7 +2,7 @@
   import gql from 'graphql-tag';
   import { client } from './apollo';
 
-  const ARTICLES = gql`
+  const DOCUMENTS = gql`
   query MyQuery @cached {
       Document {
         description
@@ -13,8 +13,8 @@
     }
   `;
   export async function preload() {
-    console.log(ARTICLES)
-    const {data} = await client.query({query: ARTICLES})
+    console.log(DOCUMENTS)
+    const {data} = await client.query({query: DOCUMENTS})
     console.log(data)
     return {
       cache: data
@@ -27,22 +27,22 @@
   
   export let cache;
   console.log('sadasdsa',cache)
-  restore(client, ARTICLES, cache);
+  restore(client, DOCUMENTS, cache);
 
-  const articles = query(client, { query: ARTICLES });
-  console.log('asdas', articles)
+  const docs = query(client, { query: DOCUMENTS });
+  console.log('asdas', docs)
 </script>
 
 <ul>
-  {#await $articles}
+  {#await $docs}
     <li>Loading...</li>
   {:then result}
-    {#each result.data.Document as article (article.id)}
-      <li>{article.name}</li>
+    {#each result.data.Document as doc (doc.id)}
+      <li>{doc.name}</li>
     {:else}
-      <li>No articles found</li>
+      <li>No docs found</li>
     {/each}
   {:catch error}
-    <li>Error loading articles: {error}</li>
+    <li>Error loading docs: {error}</li>
   {/await}
 </ul>

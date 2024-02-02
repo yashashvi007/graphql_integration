@@ -4,6 +4,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+import css from 'rollup-plugin-css-only';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -36,6 +37,7 @@ export default {
 		replace({
       		'process.env.NODE_ENV': JSON.stringify('development'),
     	}),
+			css({ output: 'public/build/bundle.css' }),
 
 		// Watch the `public` directory and refresh the
 		// browser on changes when not in production
